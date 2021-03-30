@@ -1,12 +1,9 @@
 <template>
   <v-app app dark>
-    <!-- Sizes your content based upon application components -->
-    <v-main>
-      <!-- Provides the application the proper gutter -->
+    <v-content>
       <v-container fluid>
-        <!-- If using vue-router -->
         <nuxt />
       </v-container>
-    </v-main>
+    </v-content>
   </v-app>
 </template>

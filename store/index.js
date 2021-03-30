@@ -1,13 +1,18 @@
 export const state = () => {
   return {
-    user: {}
+    user: {},
+    messages: []
   };
 };
 
 export const mutations = {
   setUser(state, user) {
     console.log(user);
-    return (state.user = user);
+    state.user = user;
+    state.messages = [];
+  },
+  clearData(state) {
+    state.user = {};
   }
 };
 export const actions = {

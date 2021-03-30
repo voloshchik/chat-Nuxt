@@ -2,7 +2,9 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8>
       <v-card min-width="400">
-        <v-card-title>Nuxt chat</v-card-title>
+        <v-card-title>
+          <h1>Nuxt чат</h1>
+        </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
@@ -20,14 +22,9 @@
               required
             ></v-text-field>
 
-            <v-btn
-              :disabled="!valid"
-              color="primary"
-              class="mr-4"
-              @click="submit"
+            <v-btn :disabled="!valid" color="primary" @click="submit"
+              >Войти</v-btn
             >
-              Войти
-            </v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -38,13 +35,13 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  head: {
-    title: "Мой чат"
-  },
   layout: "empty",
+  head: {
+    title: "Добро пожаловать в Nuxt чат"
+  },
   sockets: {
-    connect() {
-      console.log("client IO conected");
+    connect: function() {
+      console.log("socket connected");
     }
   },
   data: () => ({
@@ -57,18 +54,18 @@ export default {
     room: "",
     roomRules: [v => !!v || "Введите комнату"]
   }),
-
   methods: {
     ...mapMutations(["setUser"]),
     submit() {
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        const user = {
+          name: this.name,
+          room: this.room
+        };
 
-      const user = {
-        name: this.name,
-        room: this.room
-      };
-      this.setUser(user);
-      this.$router.push("/chat");
+        this.setUser(user);
+        this.$router.push("/chat");
+      }
     }
   }
 };
